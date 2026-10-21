@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Poppins:wght@300;400;500&display=swap');
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#fff7fa;
+  font-family:'Poppins',sans-serif;
+  display:flex;
+  justify-content:center;
+  padding:10px;
+}
+
+.calendar{
+  width:100%;
+  max-width:400px;
+  background:#ffe6ee;
+  border:2px solid #ffc9d9;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 6px 20px rgba(255,182,193,.25);
+}
+
+.title{
+  text-align:center;
+  font-family:'Parisienne',cursive;
+  font-size:2rem;
+  color:#d66a92;
+  margin-bottom:10px;
+}
+
+.month{
+  text-align:center;
+  color:#c45b82;
+  font-weight:600;
+  font-size:1.1rem;
+  margin-bottom:15px;
+}
+
+.days,
+.dates{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:6px;
+  text-align:center;
+}
+
+.days div{
+  color:#c45b82;
+  font-weight:600;
+  font-size:0.85rem;
+}
+
+.date{
+  background:white;
+  border-radius:12px;
+  padding:8px 0;
+  color:#8c6473;
+}
+
+.today{
+  background:#ffb4ca;
+  color:white;
+  font-weight:bold;
+}
+
+.footer{
+  text-align:center;
+  margin-top:12px;
+  color:#d66a92;
+  font-size:1rem;
+}
+</style>
+</head>
+
+<body>
+
+<div class="calendar">
+  <div class="title">♡ Coquette ♡</div>
+  <div class="month" id="monthYear"></div>
+
+  <div class="days">
+    <div>S</div>
+    <div>M</div>
+    <div>T</div>
+    <div>W</div>
+    <div>T</div>
+    <div>F</div>
+    <div>S</div>
+  </div>
+
+  <div class="dates" id="dates"></div>
+
+  <div class="footer">୨୧ 🎀 ୨୧</div>
+</div>
+
+<script>
+const current = new Date();
+const monthYear = document.getElementById("monthYear");
+const dates = document.getElementById("dates");
+
+const year = current.getFullYear();
+const month = current.getMonth();
+
+monthYear.textContent = current.toLocaleString('default', {
+  month: 'long',
+  year: 'numeric'
+});
+
+const firstDay = new Date(year, month, 1).getDay();
+const totalDays = new Date(year, month + 1, 0).getDate();
+
+for(let i = 0; i < firstDay; i++){
+  dates.innerHTML += "<div></div>";
+}
+
+for(let day = 1; day <= totalDays; day++){
+  const div = document.createElement("div");
+  div.classList.add("date");
+  div.textContent = day;
+
+  if(day === current.getDate()){
+    div.classList.add("today");
+  }
+
+  dates.appendChild(div);
+}
+</script>
+
+</body>
+</html>
